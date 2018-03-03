@@ -9,6 +9,6 @@ git commit -m "automatically send commit message to weibo"
 git push origin master
 ```
 
-此时我会自动在新浪网发出一条微博
+此时便会自动在新浪网发出一条微博
 
 ![](demo.png)
