@@ -78,19 +78,23 @@ def get_access_token(app_key, app_secret, callback_url, session):
     access_token = res2.json()['access_token']
     return(access_token)
 
-def new_weibo(access_token, content):
+def new_weibo(access_token, content, pic):
     postdata = {
             'access_token': access_token,
             'status': content
             }
     url = "https://api.weibo.com/2/statuses/share.json"
-    res = requests.post(url, data=postdata, headers = headers)
+    if not pic:
+        res = requests.post(url, data=postdata, headers = headers)
+    else:
+        picf = {'pic': open(pic, 'rb')}
+        res = requests.post(url, data=postdata, files = picf, headers = headers)
     print(res.json())
 
 def send_weibo(content):
     session = login(username, passwd)
     token = get_access_token(app_key, app_secret, callback_url, session)
-    new_weibo(token, content)
+    new_weibo(token, content, "")
 
 if __name__ == '__main__':
     send_weibo("hello world!")
